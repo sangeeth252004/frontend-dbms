@@ -1,0 +1,59 @@
+.dashboard {
+  padding: 20px;
+}
+
+.dashboard h1 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.loading {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+  color: #666;
+}
+
+.dashboard-info {
+  margin-top: 30px;
+}
+
+.info-card {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-card h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.info-card p {
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-card ul li {
+  padding: 10px 0;
+  padding-left: 25px;
+  position: relative;
+  color: #555;
+}
+
+.info-card ul li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #28a745;
+  font-weight: bold;
+}
+
+
