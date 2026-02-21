@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { allocationsAPI, studentsAPI, roomsAPI } from '../services/api';
+import { allocationsAPI } from '../services/api';
 import AllocationModal from '../components/AllocationModal';
 
 const Allocations = () => {

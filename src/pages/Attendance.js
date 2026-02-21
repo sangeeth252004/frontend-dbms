@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { attendanceAPI, studentsAPI } from '../services/api';
+import React, { useState, useEffect, useCallback } from 'react';
+import { attendanceAPI } from '../services/api';
 import AttendanceModal from '../components/AttendanceModal';
 
 const Attendance = () => {
@@ -8,11 +8,7 @@ const Attendance = () => {
   const [showModal, setShowModal] = useState(false);
   const [filterDate, setFilterDate] = useState(new Date().toISOString().split('T')[0]);
 
-  useEffect(() => {
-    fetchAttendance();
-  }, [filterDate]);
-
-  const fetchAttendance = async () => {
+  const fetchAttendance = useCallback(async () => {
     try {
       const response = await attendanceAPI.getByDate(filterDate);
       setAttendance(response.data);
@@ -21,7 +17,11 @@ const Attendance = () => {
       console.error('Error fetching attendance:', error);
       setLoading(false);
     }
-  };
+  }, [filterDate]);
+
+  useEffect(() => {
+    fetchAttendance();
+  }, [fetchAttendance]);
 
   const handleCreate = () => {
     setShowModal(true);
