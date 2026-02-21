@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+// Use environment variable for API URL (set in client/.env)
+// For production: REACT_APP_API_URL=https://your-render-app.onrender.com/api
+// For local development: REACT_APP_API_URL=http://localhost:5000/api
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 const api = axios.create({
@@ -7,7 +10,38 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 10000, // 10 second timeout
 });
+
+// Request interceptor for debugging
+api.interceptors.request.use(
+  (config) => {
+    console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
+    return config;
+  },
+  (error) => {
+    console.error('API Request Error:', error);
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor for error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      // Server responded with error status
+      console.error('API Error:', error.response.status, error.response.data);
+    } else if (error.request) {
+      // Request made but no response received
+      console.error('API Error: No response received', error.request);
+    } else {
+      // Error in request setup
+      console.error('API Error:', error.message);
+    }
+    return Promise.reject(error);
+  }
+);
 
 // Students API
 export const studentsAPI = {
@@ -78,5 +112,6 @@ export const maintenanceAPI = {
 };
 
 export default api;
+
 
 
